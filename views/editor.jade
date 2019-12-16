@@ -1,0 +1,17 @@
+//
+   Created by gaozy on 12/12/19.
+
+extends layout
+
+block content
+    div#editor
+        p Hello World
+
+<!-- Include the Quill library -->
+script(src="https://cdn.quilljs.com/1.3.6/quill.js")
+
+<!-- Initialize Quill editor -->
+script.
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });

@@ -1,0 +1,22 @@
+{
+  "name": "xdn-demo-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ZhaoyuUmass/xdn-demo-app"
+  },
+  "author": "Zhaoyu Gao",
+  "license": "UMASS",
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "body-parser": "*",
+    "request": "*",
+    "http": "*"
+  }
+}

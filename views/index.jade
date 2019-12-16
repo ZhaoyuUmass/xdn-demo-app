@@ -1,0 +1,29 @@
+//
+   Created by gaozy on 12/11/19.
+
+extends layout
+
+block content
+    h1= "XDN Demo"
+    hr
+    h2 Current Value: #{value}
+    h4 #{error}
+    hr
+    form(id="myform", method="post")
+        input.form-control#number(type='number', name='addValue', placeholder='Integer', style='width:auto', onclick="btnControlPost()")
+        br
+        button.btn.btn-default#add(type='submit') Add Value
+
+    script.
+        function btnControlPost() {
+            $('add').onclick(function () {
+                document.getElementsByClassName("myValue").innerHTML = val;
+                if (!error){
+                    document.getElementsByClassName("error").innerHTML = 'Error:'+error;
+                }
+            })
+        }
+
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
