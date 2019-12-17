@@ -22,37 +22,41 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 
 var bodyParser = require("body-parser");
-var jsonParser = bodyParser.json()
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var jsonParser = bodyParser.json();
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
 app.use(jsonParser);
 
 
 var val = 0;
+var counter = 0;
 
 app.get('/', function(req, res){
     res.render('index', {value:val});
 });
 
 app.post('/', function(req, res){
+    console.time("test");
+    // console.log("POST:", req.body);
+    var id = counter++;
+    // console.log('id:', id);
 
-    console.log("POST:", req.body);
+    map.set(id, res);
 
     request.post(url, {
         json: {
             value: req.body.addValue.toString(),
-            serviceName: "XDNAgentApp0"
+            serviceName: "XDNAgentApp0",
+            id: id
         }
-    }, (error, response, body) => {
+    }, function(error, response, body) {
         if (error) {
             console.error(error);
             return;
         }
-        console.log(`statusCode: ${response.statusCode}`);
-        console.log(response.body);
+        // console.log(`statusCode: ${response.statusCode}`);
+        // console.log(response.body);
 
-        // val += Number(req.body.addValue);
-        res.render('index', {value:val});
     });
     /*
     var v = req.body.addValue;
@@ -61,12 +65,28 @@ app.post('/', function(req, res){
     */
 });
 
+let map = new Map();
+
 // execute
 app.post('/xdn', function(req, res){
-    console.log("XDN:",req.body);
+    // console.log("XDN:",req.body);
+
     val += Number(req.body.value);
+
     res.send("OK");
 
+    var id = req.body.id;
+    var response = map.get(id);
+
+    // console.log('Reponse:',response, 'id:',id);
+    if (response) {
+        console.time("render");
+        response.render('index', {value:val});
+        console.timeEnd("render");
+    }
+    map.delete(id);
+
+    console.timeEnd("test");
 });
 
 /**
