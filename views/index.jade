@@ -4,15 +4,16 @@
 extends layout
 
 block content
-    h1= "XDN Demo"
-    hr
-    h2 Current Value: #{value}
-    h4 #{error}
-    hr
-    form(id="myform", method="post")
-        input.form-control#number(type='number', name='addValue', placeholder='Integer', style='width:auto', onclick="btnControlPost()")
-        br
-        button.btn.btn-default#add(type='submit') Add Value
+    div(style="position: relative; left: 200px;")
+        p(style="color: black; font-size:24px;") XDN Demo
+    div(style="position: relative; left: 200px;")
+        p(style="color: black; font-size:24px;") Stateful
+        p(style="bold: true; color: black; font-size:100px;") #{value}
+        //button.btn.btn-success#add(type='submit', onclick="btnControlPost()") +1
+        //button.btn.btn-danger#substract(type='submit', onclick="btnControlPost()") -1
+        form(id="myform", method="post")
+            input.form-control#number(type='number', name='addValue', placeholder='Integer', style='width:auto', onclick="btnControlPost()")
+
 
     script.
         function btnControlPost() {
