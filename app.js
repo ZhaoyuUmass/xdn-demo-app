@@ -14,7 +14,6 @@ const app = express();
 
 // The address of xdn agent running on the same host
 addr = process.env.ADDR || "localhost";
-const url = "http://"+addr+":12416/";
 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
@@ -27,8 +26,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use(urlencodedParser);
 app.use(jsonParser);
 
-
-const valFile = 'value.txt';
+const valFile = '/tmp/value.txt';
 
 var val = 0;
 var counter = 0;
@@ -153,8 +151,22 @@ if(!module.parent){
         console.log("Listening on",port);
     });
 
-    fs.readFile(valFile, 'utf8', function(err, content) {
-        val = Number(content);
-    });
+    try {
+        if (fs.existsSync(valFile)) {
+            fs.readFile(valFile, 'utf8', function(err, content) {
+                val = Number(content);
+            });
+        } else {
+            // create a new file and initialize the file with value 0
+            fs.writeFile(valFile, '1', function(err){
+                if (err) return console.log(err);
+                console.log('initialize file '+valFile+" with value 1");
+                val = 1;
+            });
+        }
+    } catch(err) {
+        console.error(err)
+    }
+
 
 }
