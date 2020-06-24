@@ -63,13 +63,10 @@ script/gpClient.sh -DgigapaxosConfig=conf/xdn.local.properties \
 
 The app information is in the config file `conf/app/service.properties`:
 ```
-NAME=UMass
+NAME=www
 IMAGE_NAME=xdn-demo-app
 IMAGE_URL=oversky710/xdn-demo-app
 DOCKER_PORT=3000
-VALUE=1
-COORD=true
-NUM_REQ=5
 ```
 
 Open the link with your browser to view the app: [http://localhost/xdnapp](http://localhost/xdnapp)
